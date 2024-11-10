@@ -107,11 +107,7 @@ const Guide = () => {
     <div className="flex flex-col w-full">
       <Header />
       <div className="flex-1 overflow-y-auto pb-20 mt-[15px] px-4">
-        {(selectedSection ? (
-          <div>
-            <GuideDetailContent stadiumName={selectedStadium} zoneName={selectedSection} zoneColor={selectedSectionColor} zoneNameList={zoneNameList} onSelectZone={handleSectionClick}/>
-          </div>
-        : */stadiumInfo ? (
+        {(stadiumInfo ? (
           <>
             <Dropdown options={stadiumList} selectedOption={selectedStadium} onSelect={handleStadiumSelect} />
             <div className="mt-4">
