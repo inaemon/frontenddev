@@ -111,7 +111,7 @@ const Guide = () => {
           <>
             <Dropdown options={stadiumList} selectedOption={selectedStadium} onSelect={handleStadiumSelect} />
             <div className="mt-4">
-              <Image
+              <Image 
                 src={stadiumInfo.imgUrl}
                 alt={`${selectedStadium} 이미지`}
                 className="w-full h-auto rounded-lg"
