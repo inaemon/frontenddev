@@ -51,22 +51,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps: { session, ...pagePro
     setSelectedStadium: setSelectedMainStadium
   } = useStadiumSelector();
 
-  // 가이드 스타디움 관리
-  const {
-    selectedStadium: selectedGuideStadium,
-    setSelectedStadium: setSelectedGuideStadium,
-    selectedSection: selectedGuideSection,
-    setSelectedSection: setSelectedGuideSection,
-    selectedSectionColor: selectedGuideSectionColor,
-    setSelectedSectionColor: setSelectedGuideSectionColor,
-    zoneNameList: guideZoneNameList,
-    setZoneNameList: setGuideZoneNameList,
-    handleStadiumSelect: handleGuideStadiumSelect,
-    handleSectionClick: handleGuideSectionClick,
-    stadiumInfo: guideStadiumInfo,
-    setStadiumInfo: setGuideStadiumInfo
-  } = useStadiumSelector();
-
   // 백엔드에 추천 질문 데이터 전송 후 반환받은 resultId 값 저장하는 변수/함수
   const [resultId, setResultId] = useState<number | null>(null);  //useState(0);  // 0 또는 -1로 초기화'
   
@@ -94,7 +78,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps: { session, ...pagePro
         case '/recommend/question':
             return <Question stadium={selectedMainStadium} setResultId={setResultId} recommendedZoneList={recommendedZoneList} setRecommendedZoneList={setRecommendedZoneList}/>;
         case '/recommend/results':
-            return <Result stadium={selectedMainStadium} resultId={resultId} setResultId={setResultId} recommendedZoneList={recommendedZoneList} setRecommendedZoneList={setRecommendedZoneList}/>;
+            return <Result stadium={selectedMainStadium} resultId={resultId} setResultId={setResultId} />;
         case '/guide':
             return <Guide/>
         case '/guide/zone':

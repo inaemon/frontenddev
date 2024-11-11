@@ -15,6 +15,9 @@ export default {
         md: ["16px", "150%"],
         sm: ["14px", "150%"],
         xs: ["12px", "150%"],
+        xxs: ["11px", "150%"],
+        xxxs: ["10px", "150%"],
+        xxxxs: ["8px", "150%"],
       },
 
       fontWeight: {

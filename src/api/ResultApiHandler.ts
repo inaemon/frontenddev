@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { getProfile, postZone, getZones } from './ResultApiService'; // API 함수들 가져오기
 import { SavePostRequestType, SavePostResponseType, 
          ProfileGetResponseType,
-         ZoneGetResponseType, ReferenceGroup, Reference } from "./ResultApiType";
+         ZoneGetResponseType } from "./ResultApiType";
+import { ReferenceGroup, Reference } from "./StadiumApiType";
 
 import { StadiumType, SeatType, Keyword } from "../constants/ZoneData";
 
@@ -165,18 +166,19 @@ export const handlePrint = async (count: number, resultId: number | null) => {
     
     // 데이터 파싱 (배열)
     const parsedData: ZoneGetResponseType[] = data.map((zone: ZoneGetResponseType) => ({
-      name: zone.name,
-      explanations: zone.explanations.join(', '),
-      tip: zone.tip,
       zoneId: zone.zoneId,
-      references: zone.referencesGroup.map((group: ReferenceGroup) => ({
+      name: zone.name,
+      color: zone.color,
+      explanations: zone.explanations,
+      tip: zone.tip,
+      referencesGroup: zone.referencesGroup.map((group: ReferenceGroup) => ({
         groupTitle: group.groupTitle,
         references: group.references.map((ref: Reference) => ({
           title: ref.title,
-          content: ref.content,
+          contents: ref.contents,
+          })),
         })),
-      })),
-    }));
+      }));
 
     return parsedData;
 

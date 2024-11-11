@@ -57,20 +57,12 @@ export interface ZoneGetParamsType {
 };
 
 // GET 응답
+import { ReferenceGroup } from "./StadiumApiType";
 export interface ZoneGetResponseType {       // interface Zone으로 할지 고민
     zoneId: number;
     name: string;
+    color: string;
     explanations: string[];
     tip: string;
     referencesGroup: ReferenceGroup[];
-}
-
-export interface ReferenceGroup {
-    groupTitle: string;
-    references: Reference[];
-}
-
-export interface Reference {
-    title: string;
-    content: string;
 }
