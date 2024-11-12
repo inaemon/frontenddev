@@ -10,7 +10,7 @@ const Bar = () => {
                     야구장 유형 테스트 결과
                 </p>
             </div>
-            <Image src={shareButtonGrayIcon} alt="공유 버튼" width={28} height={24}/>
+            <Image src={shareButtonGrayIcon} alt="공유 버튼" width={28} height={24} className="cursor-pointer"/>
         </div>
     )
 }

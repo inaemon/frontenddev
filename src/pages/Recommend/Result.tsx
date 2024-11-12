@@ -31,12 +31,15 @@ import ChooseBaseballTeamDialog from "@/src/components/dialogs/ChooseBaseballTea
 // zone 관리: KT or 잠실
 // 부모로부터 인자로 받기
 export interface Props {
-    stadium: StadiumType;
+    //stadium: StadiumType;
     resultId: number | null;
     setResultId: Dispatch<SetStateAction<number | null>>;
 }
 
-const Page = ({stadium, resultId, setResultId}: Props) => {
+const Page = ({/*stadium,*/ resultId, setResultId}: Props) => {
+    // 스타디움
+    const [selectedStadium, setSelectedStadium] = useState<StadiumType>(StadiumType.NONE);
+    
     /////////////////////////////////////////////
     // Question 페이지와 상태 동기화
     const router = useRouter();
@@ -52,6 +55,12 @@ const Page = ({stadium, resultId, setResultId}: Props) => {
             //console.log(stadium);
             //console.log(recommendedZoneList);
             setResultId(resultId);
+        }
+
+        if (router.query.selectedStadium) {
+            const selectedStadium = router.query.selectedStadium as StadiumType;
+
+            setSelectedStadium(selectedStadium);
         }
 
     }, [router.query]); // 쿼리 파라미터가 변경될 때마다(결과 페이지로 전환시) 실행
@@ -110,7 +119,7 @@ const Page = ({stadium, resultId, setResultId}: Props) => {
         router.push({
         pathname: '/guide/zone',  // 리다이렉트할 경로
         query: {                  // 쿼리 파라미터 전달
-            stadiumName: stadium,
+            stadiumName: selectedStadium,
             zoneName: recommendedZoneList[index].name,
             zoneColor: recommendedZoneList[index].color,
             zoneNameList: [],
@@ -122,7 +131,12 @@ const Page = ({stadium, resultId, setResultId}: Props) => {
     // 추천 다시 받기 버튼 클릭 시 리다이렉트 이벤트
     const handleRedirectToRecommendation = () => {
         // 추천 다시 받기 페이지로 리다이렉트
-        router.push('/recommend/question');  // '/recommend'는 추천 페이지의 URL입니다. 수정할 수 있습니다.
+        router.push({
+            pathname: '/recommend/question',  // 리다이렉트할 경로
+            query: {                          // 쿼리 파라미터 전달
+            stadiumName: selectedStadium,
+            },
+        });
     };
 
 
@@ -261,7 +275,7 @@ const Page = ({stadium, resultId, setResultId}: Props) => {
                 */}
 
                 {/** 다음 버튼, 맨 아래에 배치 */}
-                <div className="relative flex justify-center items-center text-center border border-0 rounded-[8px] h-[48px] mb-[40px] w-full gap-[8px] z-10 mt-[20px] px-[16px]">
+                <div className="relative flex justify-center items-center text-center border border-0 rounded-[8px] h-[48px] mb-[40px] w-full gap-[8px] mt-[20px] px-[16px]">
                     <div className="bg-main-10 border border-0 rounded-[8px] cursor-pointer" onClick={handleRedirectToRecommendation}>
                         <p className="text-md text-main-70 font-semibold min-w-[135px] px-[8px] py-[12px]">
                             추천 다시 받기

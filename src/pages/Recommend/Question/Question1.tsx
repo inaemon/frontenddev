@@ -72,8 +72,8 @@ const Page = ({previousStep, nextStep, selectedSeat, setSelectedSeat}: Props) =>
                     <Image src={ballPinkIcon} alt="핑크 야구공 이미지" width={66} height={66}
                         className="absolute bottom-[40px] left-[13%] transform -translate-x-1/2"
                     />
-                    <Image src={stickIcon} alt="배트 이미지" width={120} height={184}
-                        className="absolute bottom-[40px] left-[85%] transform -translate-x-1/2"
+                    <Image src={stickIcon} alt="배트 이미지" 
+                        className="absolute bottom-[35px] right-0 w-[60%]"
                     />
                     {/**z-10 relative:  맨 위에 배치 */}
                     <div className={`flex justify-center items-center border rounded-[8px] h-[48px] mb-[40px] z-10 relative

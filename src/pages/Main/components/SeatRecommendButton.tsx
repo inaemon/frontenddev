@@ -1,13 +1,30 @@
 import React from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 
-export default function FindSectionButton() {
+import { StadiumType } from "@/src/constants/ZoneData";
+
+interface Props {
+  stadiumName: StadiumType;
+}
+
+
+export default function FindSectionButton({stadiumName}: Props) {
   const router = useRouter();
 
-  // 추천 질문 페이지로 이동
+  // 클릭시 발동하는 이벤트
   const handleClick = () => {
-    router.push("/recommend/question");
+    redirect();
   };
+
+  // 추천 질문 페이지로 이동 이벤트
+  const redirect = () => {
+    router.push({
+      pathname: '/recommend/question',  // 리다이렉트할 경로
+      query: {                          // 쿼리 파라미터 전달
+        stadiumName: stadiumName,
+      },
+    });
+  }
 
   return (
     <div className="flex w-full mt-[42px]">

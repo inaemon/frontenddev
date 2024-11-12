@@ -11,9 +11,14 @@ interface Props extends QuestionProps {
     selectedKeywordItems: Keyword[];
     handleKeywordItem: (keyword: Keyword) => void;
     hasNowish: boolean;
+    clearNowishItems: () => void;
 }
 
-const Page = ({previousStep, nextStep, selectedKeywordItems, handleKeywordItem, hasNowish}: Props) => {
+const Page = ({previousStep, nextStep, selectedKeywordItems, handleKeywordItem, hasNowish, clearNowishItems}: Props) => {
+
+    const handleNoneNowish = () => {
+        clearNowishItems();
+    }
 
     return (
         <div className="w-full px-[16px]">
@@ -72,6 +77,16 @@ const Page = ({previousStep, nextStep, selectedKeywordItems, handleKeywordItem, 
                         </p>
                     </div>
                 </div>
+
+                <div className="flex justify-center items-center gap-[12px] mb-[12px] z-10">
+                    <div className={`flex justify-center items-center bg-grayscale-5 border rounded-[8px] w-full p-[16px]"
+                         cursor-pointer ${!hasNowish? 'border-main-50 text-main-50 bg-main-5':'border-transparent text-grayscale-80 bg-grayscale-5'}`}
+                    >
+                        <p className="text-sm font-medium text-center py-[16px]" onClick={handleNoneNowish}>
+                            해당 없음
+                        </p>
+                    </div>
+                </div>
             </div>
 
 
@@ -80,16 +95,15 @@ const Page = ({previousStep, nextStep, selectedKeywordItems, handleKeywordItem, 
             <div className="absolute bottom-0 left-0 w-full px-[16px]">
                 {/** 상대 위치로 핑크 존 이미지를 시작하기 버튼으로부터 7px 위에, 왼쪽으로부터 70% 위치에 배치 */}
                 <div className="relative">
-                    <Image src={pinkZoneIcon} alt="핑크 야구장 이미지" width={205} height={205}
-                        className="absolute bottom-[7px] left-[70%] transform -translate-x-1/2"
+                    <Image src={pinkZoneIcon} alt="핑크 야구장 이미지"
+                        className="absolute bottom-[27px] right-0 w-[80%]"
                     />
                     {/**z-10 relative:  맨 위에 배치 */}
                     <div className={`flex justify-center items-center border rounded-[8px] h-[48px] mb-[40px] z-10 relative
-                                   ${!hasNowish? 'bg-grayscale-10' : 'bg-grayscale-80 cursor-pointer'}`}
+                                  bg-grayscale-80 cursor-pointer`}
                          onClick={nextStep}
                     >
-                        <p className={`text-md font-semibold 
-                                    ${!hasNowish? 'text-grayscale-70' : 'text-grayscale-0'}`}
+                        <p className={`text-md font-semibold text-grayscale-0`}
                          >
                             나에게 딱 맞는 구역 추천 받기
                         </p>

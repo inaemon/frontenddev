@@ -103,7 +103,7 @@ const Main = ({ selectedStadium, setSelectedStadium }: Props) => {
 
         {/* 나에게 맞는 구역 찾으러 가기 버튼 */}
         <div className="flex justify-center">
-          <SeatRecommendButton />
+          <SeatRecommendButton stadiumName={selectedStadium} />
         </div>
       </div>
 

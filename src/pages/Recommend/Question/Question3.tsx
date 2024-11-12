@@ -90,7 +90,7 @@ const Page = ({previousStep, nextStep, selectedZone, selectedKeywordItems, handl
                          onClick={() => handleKeywordItem(Keyword.WISH6)}
                     >
                         <p className="text-sm font-medium text-center py-[16px]">
-                            🍗 선수들 가까이
+                            🙋 선수들 가까이
                         </p>
                     </div>
                 </div>
@@ -121,8 +121,8 @@ const Page = ({previousStep, nextStep, selectedZone, selectedKeywordItems, handl
             <div className="absolute bottom-0 left-0 w-full px-[16px]">
                 {/** 상대 위치로 글로브 이미지를 시작하기 버튼으로부터 15px 위에, 왼쪽으로부터 68% 위치에 배치 */}
                 <div className="relative">
-                    <Image src={gloveIcon} alt="야구 글로브 이미지" width={216} height={201}
-                        className="absolute bottom-[15px] left-[68%] transform -translate-x-1/2"
+                    <Image src={gloveIcon} alt="야구 글로브 이미지"
+                        className="absolute bottom-[15px] left-[68%] w-[70%] transform -translate-x-1/2"
                     />
                     {/**z-10 relative:  맨 위에 배치 */}
                     <div className={`flex justify-center items-center border rounded-[8px] h-[48px] mb-[40px] z-10 relative

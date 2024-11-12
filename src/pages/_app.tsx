@@ -76,9 +76,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps: { session, ...pagePro
         case '/':
             return <Main selectedStadium={selectedMainStadium} setSelectedStadium={setSelectedMainStadium}/>;
         case '/recommend/question':
-            return <Question stadium={selectedMainStadium} setResultId={setResultId} recommendedZoneList={recommendedZoneList} setRecommendedZoneList={setRecommendedZoneList}/>;
+            return <Question /*stadium={selectedMainStadium}*/ setResultId={setResultId} recommendedZoneList={recommendedZoneList} setRecommendedZoneList={setRecommendedZoneList}/>;
         case '/recommend/results':
-            return <Result stadium={selectedMainStadium} resultId={resultId} setResultId={setResultId} />;
+            return <Result /*stadium={selectedMainStadium}*/ resultId={resultId} setResultId={setResultId} />;
         case '/guide':
             return <Guide/>
         case '/guide/zone':

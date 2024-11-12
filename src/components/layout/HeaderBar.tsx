@@ -16,7 +16,7 @@ const Bar = ({stadium, closeEvent}: Props) => {
                     내가 갈 곳은? {stadium}
                 </p>
             </div>
-            <Image src={closeButtonGrayIcon} alt="닫기 버튼" width={24} height={24} onClick={closeEvent}/>
+            <Image src={closeButtonGrayIcon} alt="닫기 버튼" width={24} height={24} onClick={closeEvent} className="cursor-pointer"/>
         </div>
     )
 }
