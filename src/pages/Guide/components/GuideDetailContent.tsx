@@ -13,6 +13,7 @@ import SeatTipDialog from "@/src/components/dialogs/SeatTipDialog";
 import { useRouter } from 'next/router';  // useRouter를 임포트합니다.
 
 import { StadiumType } from "@/src/constants/ZoneData";
+import Header from "../../../components/layout/BackLogoBar";
 import NavBar from "@/src/components/layout/NavBar";
 /*
 interface Props extends GuideGetParamsType {
@@ -70,71 +71,76 @@ export default function GuideDetailContent() {
   }, [selectedZone]); // 쿼리 파라미터가 변경될 때마다 API 호출
 
   return (
-    <div className="relative mb-[84px]">
-      {/* 가이드 데이터가 null이 아닐 때 렌더링 */}
-      {guideData ? (
-        <>
-          {/* 좌석 선택 드롭다운 및 Tip 버튼 */}
-          <div className="flex items-center mb-4">
-              <SeatDropdown
-                options={zoneNameList?? []}
-                selectedOption={selectedZone}
-                onSelect={handleZoneClick}
-                selectedColor={guideData.zoneColor?? zoneColor}
-              />
-              <button className="ml-auto w-[54px] h-[30px] flex items-center justify-center">
-                <Image src={tipIcon} alt="Tip" width={54} height={30} onClick={openModal} />
-              </button>
-              {isOpen && guideData.referencesGroup && guideData.referencesGroup.length > 0 && (
-                <SeatTipDialog
-                  zoneName={guideData.zoneName}
-                  zoneColor={guideData.zoneColor}
-                  tip={guideData.tip}
-                  referencesGroup={guideData.referencesGroup[0]} // 첫 번째 referencesGroup만 전달
-                  onClose={closeModal} // 모달 닫기 함수
+    <>
+      <div className="sticky top-0 z-10 bg-white mb-[54px]">
+        <Header />
+      </div>
+      <div className="relative px-4 pb-20 pt-5 overflow-y-auto scrollbar-hide">
+        {/* 가이드 데이터가 null이 아닐 때 렌더링 */}
+        {guideData ? (
+          <>
+            {/* 좌석 선택 드롭다운 및 Tip 버튼 */}
+            <div className="flex items-center mb-4">
+                <SeatDropdown
+                  options={zoneNameList?? []}
+                  selectedOption={selectedZone}
+                  onSelect={handleZoneClick}
+                  selectedColor={guideData.zoneColor?? zoneColor}
                 />
-              )}
-          </div>
-
-          {/* 야구장 좌석 이미지 */}
-          <div className="relative">
-            <Image src={guideData.imgUrl} alt={`${guideData.zoneName} 이미지`} className="w-full rounded-lg" width={370} height={198} />
-          </div>
-
-          {/* 구장 정보 */}
-          <StadiumInfo stadiumName={stadiumName?? ""} firstBase={guideData.firstBaseSide} thirdBase={guideData.thirdBaseSide} />
-
-          <div className="bg-grayscale-5 p-4 rounded-lg mt-4">
-            {/* 상단 타이틀 섹션 */}
-            <div className={containerClass}>
-              <h2 className="text-lg font-bold"  style={{ color: guideData.zoneColor }}>{guideData.zoneName}</h2>
-              <p className="text-sm text-gray-700 mt-2">{guideData.explanation}</p>
+                <button className="ml-auto w-[54px] h-[30px] flex items-center justify-center">
+                  <Image src={tipIcon} alt="Tip" width={54} height={30} onClick={openModal} />
+                </button>
+                {isOpen && guideData.referencesGroup && guideData.referencesGroup.length > 0 && (
+                  <SeatTipDialog
+                    zoneName={guideData.zoneName}
+                    zoneColor={guideData.zoneColor}
+                    tip={guideData.tip}
+                    referencesGroup={guideData.referencesGroup[0]} // 첫 번째 referencesGroup만 전달
+                    onClose={closeModal} // 모달 닫기 함수
+                  />
+                )}
             </div>
 
-            {/* 세부 정보 섹션 */}
-            <div className={`${containerClass} mt-3 space-y-4`}>
-              {[
-                { title: "출입구 위치", contents: guideData.entrance },
-                { title: "단차 정보", contents: guideData.stepSpacing },
-                { title: "좌석 간 간격 (무릎 간격) 정보", contents: guideData.seatSpacing },
-                { title: "이용 정보", contents: guideData.usageInformation },
-              ].map((section, index) => (
-                // content가 빈 문자열(null, undefined, "")이 아닌 경우에만 출력
-                section.contents && section.contents.some(content => content.trim() !== "") ? (
-                  <div key={index}>
-                    <h3 className={sectionTitleClass}>{section.title}</h3>
-                    {section.contents.map((content: string, contentIndex: number) => (
-                      <p key={contentIndex} className={sectionContentClass}>{content}</p>
-                    ))}
-                  </div>
-                ) : null
-              ))}
+            {/* 야구장 좌석 이미지 */}
+            <div className="relative">
+              <Image src={guideData.imgUrl} alt={`${guideData.zoneName} 이미지`} className="w-full rounded-lg" width={370} height={198} />
             </div>
-          </div>
-        </>
-      ):
-      null}
-      <NavBar/>
-    </div>
+
+            {/* 구장 정보 */}
+            <StadiumInfo stadiumName={stadiumName?? ""} firstBase={guideData.firstBaseSide} thirdBase={guideData.thirdBaseSide} />
+
+            <div className="bg-grayscale-5 p-4 rounded-lg mt-4">
+              {/* 상단 타이틀 섹션 */}
+              <div className={containerClass}>
+                <h2 className="text-lg font-bold"  style={{ color: guideData.zoneColor }}>{guideData.zoneName}</h2>
+                <p className="text-sm text-gray-700 mt-2">{guideData.explanation}</p>
+              </div>
+
+              {/* 세부 정보 섹션 */}
+              <div className={`${containerClass} mt-3 space-y-4`}>
+                {[
+                  { title: "출입구 위치", contents: guideData.entrance },
+                  { title: "단차 정보", contents: guideData.stepSpacing },
+                  { title: "좌석 간 간격 (무릎 간격) 정보", contents: guideData.seatSpacing },
+                  { title: "이용 정보", contents: guideData.usageInformation },
+                ].map((section, index) => (
+                  // content가 빈 문자열(null, undefined, "")이 아닌 경우에만 출력
+                  section.contents && section.contents.some(content => content.trim() !== "") ? (
+                    <div key={index}>
+                      <h3 className={sectionTitleClass}>{section.title}</h3>
+                      {section.contents.map((content: string, contentIndex: number) => (
+                        <p key={contentIndex} className={sectionContentClass}>{content}</p>
+                      ))}
+                    </div>
+                  ) : null
+                ))}
+              </div>
+            </div>
+          </>
+        ):
+        null}
+        <NavBar/>
+      </div>
+    </>
   );
 }

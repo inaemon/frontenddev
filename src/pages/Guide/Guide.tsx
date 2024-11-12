@@ -7,16 +7,12 @@ import GuideDetailContent from "./components/GuideDetailContent";
 import guideJamsil from "../../assets/svg/guide_jamsil.svg";
 
 import { StadiumType, stadiumList } from "@/src/constants/ZoneData";
-
 import { handleGetStadiumInfo } from "@/src/api/StadiumApiHandler";
 import { ZoneGetParamsType, ZoneGetResponseType, ZoneType } from "@/src/api/StadiumApiType";
-
-
 import { useStadiumSelector } from '@/src/hooks/useStadiumSelector';
-import { useRouter } from 'next/router';  // useRouter를 임포트합니다.
+import { useRouter } from 'next/router';
 
 const Guide = () => {
-
   // 가이드 스타디움 관리
   const {
     selectedStadium,
@@ -34,7 +30,6 @@ const Guide = () => {
   } = useStadiumSelector();
 
   // 스타디움 선택시 API 연동
-
   const handleStadiumInfo = async () => {
     const params: ZoneGetParamsType = {
       stadiumName: selectedStadium as string,
@@ -45,29 +40,32 @@ const Guide = () => {
       setStadiumInfo(stadiumApiData);
       //console.log(stadiumApiData.zones);
       setZoneNameList(stadiumApiData.zones.map(zone => zone.zoneName));
-
       const selectedZoneColor = stadiumApiData.zones.find(zone => zone.zoneName === selectedSection)?.zoneColor;
-      if(selectedZoneColor) {
-        setSelectedSectionColor(selectedZoneColor);
-      }
-    }
-  }
-  useEffect(() => {
-    handleStadiumInfo();
-  }, [selectedStadium]); // 쿼리 파라미터가 변경될 때마다 실행
-  // Zone 클릭시 가이드 세부 페이지로 이동 및 API 데이터를 쿼리 파라미터로 전달
-  const router = useRouter();
-  const handleSectionClick = (selectedZone: string) => {
-    setSelectedSection(selectedZone);
-    if(stadiumInfo){
-      const selectedZoneColor = stadiumInfo.zones.find(zone => zone.zoneName === selectedSection)?.zoneColor;
-      
       if(selectedZoneColor) {
         setSelectedSectionColor(selectedZoneColor);
       }
     }
   };
 
+  // 선택된 스타디움이 변경될 때마다 API 호출
+  useEffect(() => {
+    handleStadiumInfo();
+  }, [selectedStadium]); // 쿼리 파라미터가 변경될 때마다 실행
+// Zone 클릭시 가이드 세부 페이지로 이동 및 API 데이터를 쿼리 파라미터로 전달
+  const router = useRouter();
+  
+  // 구역을 클릭하면 선택된 구역 및 색상 업데이트
+  const handleSectionClick = (selectedZone: string) => {
+    setSelectedSection(selectedZone);
+    if(stadiumInfo){
+      const selectedZoneColor = stadiumInfo.zones.find(zone => zone.zoneName === selectedSection)?.zoneColor;
+      if(selectedZoneColor) {
+        setSelectedSectionColor(selectedZoneColor);
+      }
+    }
+  };
+
+  // 선택된 구역과 색상 정보가 업데이트될 때 상세 페이지로 이동
   useEffect(() => {
     // zone을 클릭했으면
     if (selectedSection !== "" && selectedSectionColor !== "") {
@@ -75,6 +73,7 @@ const Guide = () => {
     }
   }, [selectedSection, selectedSectionColor]);
 
+  // 상세 페이지로 이동하는 함수
   const moveDetailPage = () => {
     // 선택된 섹션에 따라 리다이렉트
     router.push({
@@ -87,11 +86,12 @@ const Guide = () => {
       },
     });
   
+    // 페이지 이동 후 상태 초기화
     setTimeout(() => {
       setSelectedSection("");
       setSelectedSectionColor("");
-    }, 100);  // 100ms 지연 후 초기화
-  }
+    }, 100); // 100ms 지연 후 초기화
+  };
 
   // router가 '/guide/zone' 경로로 이동할 때 상태 초기화
   useEffect(() => {
@@ -102,13 +102,16 @@ const Guide = () => {
     }
   }, [router.pathname]);
 
-
   return (
-    <div className="flex flex-col w-full">
-      <Header />
-      <div className="flex-1 overflow-y-auto pb-20 mt-[15px] px-4">
-        {(stadiumInfo ? (
+    <div className="flex flex-col w-full h-screen">
+      <div className="sticky top-0 z-10 bg-white">
+        <Header />
+      </div>
+      
+      <div className="flex-1 overflow-y-auto scrollbar-hide pb-20 pt-[15px] px-4" style={{ maxHeight: "calc(100vh - 80px)" }}>
+        {stadiumInfo ? (
           <>
+            {/* 스타디움 선택 드롭다운 */}
             <Dropdown options={stadiumList} selectedOption={selectedStadium} onSelect={handleStadiumSelect} />
             <div className="mt-4">
               <Image 
@@ -136,10 +139,8 @@ const Guide = () => {
               ))}
             </div>
           </>
-            ): null
-        )}
+        ) : null}
       </div>
-
       <NavBar />
     </div>
   );

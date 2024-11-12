@@ -86,6 +86,8 @@ const Page = ({previousStep, nextStep, selectedKeywordItems, handleKeywordItem, 
                             해당 없음
                         </p>
                     </div>
+                     {/** 2열 맞추려고 만든 유령 블록 */}
+                     <div className="w-full"/>
                 </div>
             </div>
 

@@ -151,8 +151,8 @@ const Page = ({/*stadium,*/ resultId, setResultId}: Props) => {
 
 
     return (
-        <div className="flex justify-center items-start bg-main-0 w-full h-screen bg-fff">
-            <div className="relative flex flex-col items-center w-full h-screen ">
+        <div className="flex justify-center items-start bg-main-0 w-full h-screen bg-fff overflow-y-auto scrollbar-hide">
+            <div className="relative flex flex-col items-center w-full h-screen">
                 {/** 임시 확인
                 <ChooseBaseballTeamDialog/>
                 <SeatTipDialog/> */}
@@ -267,6 +267,19 @@ const Page = ({/*stadium,*/ resultId, setResultId}: Props) => {
                             추천 구역이 없습니다!
                         </div>
                     )}
+                    {/** 다음 버튼, 맨 아래에 배치 */}
+                    <div className="relative flex justify-center items-center text-center border border-0 rounded-[8px] mb-24 h-[48px] w-full gap-[8px] mt-5">
+                        <div className="bg-main-10 border border-0 rounded-[8px] cursor-pointer" onClick={handleRedirectToRecommendation}>
+                            <p className="text-md text-main-70 font-semibold min-w-[135px] px-[8px] py-[12px]">
+                                추천 다시 받기
+                            </p>
+                        </div>
+                        <div className="bg-main-50 border border-0 rounded-[8px] w-full cursor-pointer" onClick={openReservationModal}>
+                            <p className="text-md text-main-0 font-semibold px-[8px] py-[12px]">
+                                예매하러 가기
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -274,19 +287,6 @@ const Page = ({/*stadium,*/ resultId, setResultId}: Props) => {
                 {renderContents()}
                 */}
 
-                {/** 다음 버튼, 맨 아래에 배치 */}
-                <div className="relative flex justify-center items-center text-center border border-0 rounded-[8px] h-[48px] mb-[40px] w-full gap-[8px] mt-[20px] px-[16px]">
-                    <div className="bg-main-10 border border-0 rounded-[8px] cursor-pointer" onClick={handleRedirectToRecommendation}>
-                        <p className="text-md text-main-70 font-semibold min-w-[135px] px-[8px] py-[12px]">
-                            추천 다시 받기
-                        </p>
-                    </div>
-                    <div className="bg-main-50 border border-0 rounded-[8px] w-full cursor-pointer" onClick={openReservationModal}>
-                        <p className="text-md text-main-0 font-semibold px-[8px] py-[12px]">
-                            예매하러 가기
-                        </p>
-                    </div>
-                </div>
                 {isReservationOpen && (
                 <ChooseBaseballTeamDialog
                   onClose={closeReservationModal} // 모달 닫기 함수

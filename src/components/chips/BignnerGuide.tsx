@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import beginnerGuideIcon from "../../assets/svg/beginner_guide.svg";
+import baseballTipIcon from "../../assets/svg/baseballTip.svg";
 
 interface BignnerGuideProps {
   onClick: () => void;
@@ -8,8 +8,8 @@ interface BignnerGuideProps {
 
 function BignnerGuide({ onClick }: BignnerGuideProps) {
   return (
-    <button onClick={onClick} className="w-[125px] h-[30px]">
-      <Image src={beginnerGuideIcon} alt="초보자 가이드 버튼" width={125} height={30} />
+    <button onClick={onClick}>
+      <Image src={baseballTipIcon} alt="야구 직관 Tip" width={101} height={30} />
     </button>
   );
 }
