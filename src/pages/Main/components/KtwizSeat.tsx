@@ -18,18 +18,18 @@ import tvingSeat from "../../../assets/webp/seat/kt_tving.webp";
 
 // 각 색상별 이미지와 오차값 포함
 const colorMap: { [key: string]: { image: StaticImageData; tolerance: number } } = {
-  "#B23039": { image: cheerSeat, tolerance: 2 },        // 빨간색 좌석: cheerSeat
-  "#65C5DE": { image: skySeat, tolerance: 20 },         // 하늘색 좌석: skySeat
-  "#292F46": { image: skyZoneSeat, tolerance: 20 },     // 남색 좌석: skyZoneSeat
-  "#008FD7": { image: kidsLandSeat, tolerance: 20 },    // 파랑 좌석: kidsLandSeat
-  "#5E346E": { image: centralSeat, tolerance: 20 },     // 보라색 좌석: centralSeat
-  "#599741": { image: genieTvSeat, tolerance: 10 },     // 녹색 좌석: genieTvSeat
-  "#F5A545": { image: yboxSeat, tolerance: 10 },        // 주황색 좌석: yboxSeat
-  "#E95560": { image: alphaShoppingSeat, tolerance: 5 }, // 핑크 좌석: alphaShoppingSeat
-  "#35659E": { image: genieZoneSeat, tolerance: 5 },    // 짙은 파랑 좌석: genieZoneSeat
-  "#3EA6A5": { image: excitingSeat, tolerance: 5 },     // 민트 좌석: excitingSeat
-  "#CEDA82": { image: outfieldSeat, tolerance: 20 },    // 연노랑 좌석: outfieldSeat
-  "#E3A3B1": { image: tvingSeat, tolerance: 5 },        // 연분홍 좌석: tvingSeat
+  "#B23039": { image: cheerSeat, tolerance: 5 },        // 빨간색 좌석: cheerSeat
+  "#65C5DE": { image: skySeat, tolerance: 15 },         // 하늘색 좌석: skySeat
+  "#292F46": { image: skyZoneSeat, tolerance: 25 },     // 남색 좌석: skyZoneSeat
+  "#008FD7": { image: kidsLandSeat, tolerance: 25 },    // 파랑 좌석: kidsLandSeat
+  "#5E346E": { image: centralSeat, tolerance: 25 },     // 보라색 좌석: centralSeat
+  "#599741": { image: genieTvSeat, tolerance: 15 },     // 녹색 좌석: genieTvSeat
+  "#F5A545": { image: yboxSeat, tolerance: 15 },        // 주황색 좌석: yboxSeat
+  "#E95560": { image: alphaShoppingSeat, tolerance: 15 }, // 핑크 좌석: alphaShoppingSeat
+  "#35659E": { image: genieZoneSeat, tolerance: 10 },    // 짙은 파랑 좌석: genieZoneSeat
+  "#3EA6A5": { image: excitingSeat, tolerance: 25 },     // 민트 좌석: excitingSeat
+  "#CEDA82": { image: outfieldSeat, tolerance: 25 },    // 연노랑 좌석: outfieldSeat
+  "#E3A3B1": { image: tvingSeat, tolerance: 10 },        // 연분홍 좌석: tvingSeat
 };
 
 // HEX 색상을 RGB로 변환하는 함수
@@ -69,8 +69,8 @@ const KtwizSeat = () => {
         const ctx = canvas.getContext("2d");
         const scale = window.devicePixelRatio || 1; // 화면 배율에 따라 픽셀 밀도 조절
 
-        const canvasWidth = 366;
-        const canvasHeight = 400;
+        const canvasWidth = 398;
+        const canvasHeight = 434;
         canvas.width = canvasWidth * scale;
         canvas.height = canvasHeight * scale;
 
@@ -138,10 +138,10 @@ const KtwizSeat = () => {
   };
 
   return (
-    <div className="flex justify-center mt-6" onClick={() => setSeatImage(defaultStadium)}>
+    <div className="flex justify-center" onClick={() => setSeatImage(defaultStadium)}>
       <canvas
         ref={canvasRef}
-        className="max-w-[366px] w-full mx-auto"
+        className="max-w-[398px] w-full mx-auto"
         onClick={handleCanvasClick}
       />
     </div>
