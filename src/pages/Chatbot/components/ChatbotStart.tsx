@@ -5,7 +5,15 @@ import chatbotIcon from "../../../assets/svg/chatbot_lookie.svg";
 const ChatbotStart = () => {
   return (
     <div className="flex items-start mb-2 transition-opacity duration-1000">
-      <Image src={chatbotIcon} alt="챗봇 아이콘" width={34} height={34} className="mr-2" />
+      <div className="flex items-center justify-center bg-main-40 rounded-md w-9 h-9 mr-2">
+        <Image 
+          src={chatbotIcon} 
+          alt="챗봇 아이콘" 
+          width={34} 
+          height={41}
+        />
+      </div>
+
       <div>
         <p className="text-[14px] font-medium text-black mb-1">챗봇 루키</p>
         <div className="bg-white p-3 rounded-lg text-xs font-regular text-grayscale-90 max-w-xs">
