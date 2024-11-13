@@ -28,7 +28,7 @@ const colorMap: { [key: string]: { image: StaticImageData; tolerance: number } }
   "#E95560": { image: alphaShoppingSeat, tolerance: 15 }, // 핑크 좌석: alphaShoppingSeat
   "#35659E": { image: genieZoneSeat, tolerance: 10 },    // 짙은 파랑 좌석: genieZoneSeat
   "#3EA6A5": { image: excitingSeat, tolerance: 25 },     // 민트 좌석: excitingSeat
-  "#CEDA82": { image: outfieldSeat, tolerance: 25 },    // 연노랑 좌석: outfieldSeat
+  "#CEDA82": { image: outfieldSeat, tolerance: 25 },     // 연노랑 좌석: outfieldSeat
   "#E3A3B1": { image: tvingSeat, tolerance: 10 },        // 연분홍 좌석: tvingSeat
 };
 
@@ -107,15 +107,17 @@ const KtwizSeat = () => {
     };
   }, []);
 
-  const handleCanvasClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
+  const handleCanvasClick = (event: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
     event.stopPropagation(); // 이벤트 버블링 방지
     if (!isImageLoaded) return;
 
     const canvas = canvasRef.current;
     if (canvas) {
       const rect = canvas.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
+
+      // 터치 이벤트인지 확인하여 좌표 계산
+      const x = "clientX" in event ? event.clientX - rect.left : event.touches[0].clientX - rect.left;
+      const y = "clientY" in event ? event.clientY - rect.top : event.touches[0].clientY - rect.top;
 
       const ctx = canvas.getContext("2d");
       if (ctx) {
@@ -143,6 +145,7 @@ const KtwizSeat = () => {
         ref={canvasRef}
         className="max-w-[398px] w-full mx-auto"
         onClick={handleCanvasClick}
+        onTouchStart={handleCanvasClick} // 터치 이벤트 추가
       />
     </div>
   );
