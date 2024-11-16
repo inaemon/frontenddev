@@ -69,8 +69,8 @@ const KtwizSeat = () => {
         const ctx = canvas.getContext("2d");
         const scale = window.devicePixelRatio || 1; // 화면 배율에 따라 픽셀 밀도 조절
 
-        const canvasWidth = 366;
-        const canvasHeight = 400;
+        const canvasWidth = 348;
+        const canvasHeight = 380;
         canvas.width = canvasWidth * scale;
         canvas.height = canvasHeight * scale;
 
@@ -141,7 +141,7 @@ const KtwizSeat = () => {
     <div className="flex justify-center mt-6" onClick={() => setSeatImage(defaultStadium)}>
       <canvas
         ref={canvasRef}
-        className="max-w-[366px] w-full mx-auto"
+        className="max-w-[348px] w-full mx-auto"
         onClick={handleCanvasClick}
       />
     </div>
