@@ -47,12 +47,7 @@ const isColorClose = (
   );
 };
 
-
-interface Props {
-  screenWidth: number;
-};
-
-const JamsilSeat = ({ screenWidth }: Props) => {
+const JamsilSeat = () => {
   const [seatImage, setSeatImage] = useState<StaticImageData>(defaultStadium);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isImageLoaded, setIsImageLoaded] = useState(false);
