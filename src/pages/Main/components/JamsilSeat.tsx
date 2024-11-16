@@ -61,8 +61,8 @@ const JamsilSeat = () => {
         const ctx = canvas.getContext("2d");
         const scale = window.devicePixelRatio || 1;  // 화면 배율에 따른 픽셀 밀도 조절
 
-        const canvasWidth = 376;
-        const canvasHeight = 356;
+        const canvasWidth = 356;
+        const canvasHeight = 336;
         canvas.width = canvasWidth * scale;
         canvas.height = canvasHeight * scale;
 
@@ -133,7 +133,7 @@ const JamsilSeat = () => {
     <div className="flex justify-center mt-6" onClick={() => setSeatImage(defaultStadium)}>
       <canvas
         ref={canvasRef}
-        className="w-full max-w-[376px] mx-auto"
+        className="w-full max-w-[356px] mx-auto"
         onClick={handleCanvasClick}
       />
     </div>
