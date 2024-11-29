@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import stadiumDropdownIcon from "../../assets/webp/stadium_dropdown.webp";
+import stadiumDropdownIcon from "@/src/assets/svg/stadium_dropdown.svg";
 
 import { StadiumType } from "@/src/constants/ZoneData";
 import { useOutsideClick } from "@/src/hooks/useOutsideClick";
