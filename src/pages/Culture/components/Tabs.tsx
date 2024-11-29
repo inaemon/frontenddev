@@ -11,7 +11,7 @@ export default function CultureTabs({ selectedTab, onSelectTab }: TabsProps) {
   const tabs: Tab[] = ["먹거리", "즐길거리"];
 
   return (
-    <div className="flex items-center justify-center bg-grayscale-0 rounded-lg p-[6px] mb-4">
+    <div className="flex items-center justify-center rounded-lg p-[6px]">
       {tabs.map((tab) => (
         <button
           key={tab}
