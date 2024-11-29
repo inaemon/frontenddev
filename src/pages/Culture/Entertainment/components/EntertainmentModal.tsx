@@ -4,12 +4,12 @@ import CloseButton from "../../../../assets/webp/close_button_gray.webp";
 import { EntertainmentItem } from "../../../../constants/CultureData";
 
 interface EntertainmentModalProps {
-  entertainment: EntertainmentItem;
+  item: EntertainmentItem; // 이름을 'item'으로 변경
   onClose: () => void;
 }
 
-const EntertainmentModal = ({ entertainment, onClose }: EntertainmentModalProps) => {
-  if (!entertainment) return null;
+const EntertainmentModal = ({ item, onClose }: EntertainmentModalProps) => {
+  if (!item) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
@@ -26,13 +26,20 @@ const EntertainmentModal = ({ entertainment, onClose }: EntertainmentModalProps)
         </button>
 
         {/* 제목 */}
-        <h2 className="text-lg font-bold text-gray-900 mb-5">{entertainment.title}</h2>
+        <h2 className="text-lg font-bold text-gray-900 mb-5">{item.title}</h2>
+
+        {/* 설명 */}
+        <div className="bg-gray-100 rounded-lg p-3 mb-4">
+            <div className="text-sm text-grayscale-80">
+            <p>• {item.description}</p>
+            </div>
+        </div>
 
         {/* 이미지 */}
         <div className="mb-4">
           <Image
-            src={entertainment.image}
-            alt={entertainment.title}
+            src={item.image}
+            alt={item.title}
             width={500}
             height={300}
             className="w-full rounded-lg object-cover max-h-[165px]"
@@ -40,16 +47,11 @@ const EntertainmentModal = ({ entertainment, onClose }: EntertainmentModalProps)
         </div>
 
         {/* 구분선 */}
-        <div className="border-t border-gray-300 my-4"></div>
-
-        {/* 설명 */}
-        <div className="text-sm text-gray-600 mb-4">
-          <p>{entertainment.description}</p>
-        </div>
+        <div className="border-t border-grayscale-10 my-5"></div>
 
         {/* 팁 */}
         <div className="text-sm text-main-50 font-semibold">
-          ❗️ {entertainment.tip}
+          ❗️ {item.tip}
         </div>
       </div>
     </div>

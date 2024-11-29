@@ -57,12 +57,10 @@ const FoodModal = ({ food, onClose }: FoodModalProps) => {
         </div>
 
         {/* 구분선 */}
-        <div className="border-t border-gray-300 my-4"></div>
+        <div className="border-t border-grayscale-10 my-5"></div>
 
         {/* 설명 */}
-        <div className="text-sm text-gray-600">
-          <p className="text-red-500 font-bold mb-2">❗️ {food.description}</p>
-        </div>
+        <p className="text-main-50 text-sm font-bold mb-2">❗️ {food.description}</p>
 
         {/* 버튼 */}
         <button
