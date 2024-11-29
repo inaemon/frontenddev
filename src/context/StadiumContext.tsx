@@ -3,7 +3,7 @@ import { StadiumType } from "@/src/constants/ZoneData";
 
 // 1. Context 타입 정의
 interface StadiumContextType {
-  selectedStadium: StadiumType | null;
+  selectedStadium: StadiumType;
   setSelectedStadium: (stadium: StadiumType) => void;
 }
 
@@ -12,8 +12,8 @@ const StadiumContext = createContext<StadiumContextType | undefined>(undefined);
 
 // 3. Context Provider 컴포넌트
 export const StadiumProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [selectedStadium, setSelectedStadium] = useState<StadiumType | null>(null);
-
+  const [selectedStadium, setSelectedStadium] = useState<StadiumType>(StadiumType.JAMSIL);  // 초기값: 잠실
+  
   return (
     <StadiumContext.Provider value={{ selectedStadium, setSelectedStadium }}>
       {children}

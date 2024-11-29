@@ -3,8 +3,10 @@ import { StadiumType } from "@/src/constants/ZoneData";
 import { ZoneGetParamsType, ZoneGetResponseType } from "@/src/api/StadiumApiType";  // 타입들 import
 import { handleGetStadiumInfo } from "@/src/api/StadiumApiHandler"; // API 호출 함수
 
+import { useStadiumContext } from "@/src/context/StadiumContext";
+
 export const useStadiumSelector = () => {
-  const [selectedStadium, setSelectedStadium] = useState<StadiumType>(StadiumType.JAMSIL); // 첫 화면은 잠실로 초기화
+  const { selectedStadium, setSelectedStadium } = useStadiumContext();
   const [selectedSection, setSelectedSection] = useState<string>("");
   const [selectedSectionColor, setSelectedSectionColor] = useState<string>("");
 

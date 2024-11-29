@@ -28,9 +28,7 @@ const Main = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false); // 준비 중 팝업 상태
 
   // 메인홈 스타디움 관리
-  const {
-    selectedStadium, setSelectedStadium
-  } = useStadiumSelector();
+  const { selectedStadium, setSelectedStadium } = useStadiumSelector();
   
   const handleStadiumSelect = (stadium: StadiumType) => {
     // 선택 가능한 구장인지 확인
