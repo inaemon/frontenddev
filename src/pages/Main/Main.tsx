@@ -108,14 +108,21 @@ const Main = () => {
   return (
     <div 
       ref={containerRef} // 스크롤을 감지할 특정 div에 Ref를 바인딩
-      className="flex flex-col w-full min-h-screen overflow-auto scrollbar-hide pt-14">
+      className="flex flex-col w-full overflow-auto scrollbar-hide pt-14"
+      /*
+      style={{
+        height: '1000px', // 높이를 설정하여 스크롤을 발생시킬 수 있도록
+        overflowY: 'scroll', // 수직 스크롤 활성화
+      }}
+      */
+      >
+        {renderScrollState()}
       {/* 코치마크 
       {showCoachMark && <CoachMark onClose={() => setShowCoachMark(false)} />}
       */}
       {/* 코치마크가 비활성화된 경우에만 메인 콘텐츠 렌더링 
       {!showCoachMark && (
       */}
-      <>
         <Header />
         <div className="flex-1 px-4 pb-24 bg-grayscale-5">
           <p className="text-xl font-bold text-grayscale-90 pt-5 text-left w-full">
@@ -168,7 +175,6 @@ const Main = () => {
 
         {/* 준비 중인 구장 선택 시 나오는 팝업 */}
         <ReadyStadiumDialog isOpen={isPopupOpen} onClose={closePopup} />
-      </>
       {/*s
       )}
       */}

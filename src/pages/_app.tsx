@@ -145,7 +145,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps: { session, ...pagePro
     </Head>
 
       {/*<SessionProvider session={session}>*/}
-      <div className="flex flex-col h-screen max-w-[500px] mx-auto ">
+      <div className="flex flex-col h-screen max-w-[500px] mx-auto overflow-hidden">
         {renderComponent()}
       </div>
       {/*</SessionProvider> */}
