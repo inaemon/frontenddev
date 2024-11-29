@@ -37,6 +37,13 @@ export const useStadiumSelector = () => {
 
   // 스타디움 변경될 때마다 호출
   useEffect(() => {
+    // 유효하지 않으면 API 호출하지 않음
+    if (!selectedStadium) {
+      console.log("유효하지 않은 스타디움 값입니다: " + selectedStadium);
+      return;
+    }
+
+    // API 호출
     handleStadiumInfo();
   }, [selectedStadium, selectedSection]);  // selectedStadium 또는 selectedSection이 변경될 때마다 실행
 
