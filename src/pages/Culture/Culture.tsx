@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CultureHeader from "../../components/layout/CultureHeader";
 import NavBar from "../../components/layout/NavBar";
 import cultureData from "../../constants/CultureData";
-import Tab from "./components/Tabs";
+import Tab from "./components/TabBackgroundPink";
 
 import Food from "./Food/Food";
 import Entertainment from "./Entertainment/Entertainment";

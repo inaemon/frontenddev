@@ -2,12 +2,12 @@ import React from "react";
 
 type Tab = "먹거리" | "즐길거리";
 
-interface TabsProps {
+interface TabsBackgroundPinkProps {
   selectedTab: Tab;
   onSelectTab: (tab: Tab) => void;
 }
 
-export default function CultureTabs({ selectedTab, onSelectTab }: TabsProps) {
+export default function CultureTabs({ selectedTab, onSelectTab }: TabsBackgroundPinkProps) {
   const tabs: Tab[] = ["먹거리", "즐길거리"];
 
   return (
