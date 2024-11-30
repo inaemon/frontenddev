@@ -10,7 +10,7 @@ const ImgUrlModal = ({ imageUrl, onClose }: { imageUrl: string, onClose: () => v
           <img 
             src={imageUrl} 
             alt="확대 이미지" 
-            className="max-w-full max-h-full" />
+            className="max-w-[500px] max-h-full" />
           <button 
             onClick={onClose} 
             className="absolute top-0 right-0 text-grayscale-50 p-2 rounded-full">
