@@ -56,7 +56,7 @@ const Page = ({onComplete}: Props) => {
                     <Image 
                         src={onboardingRookieIcon} 
                         alt="루키" 
-                        className="absolute bottom-[170px] left-1/2 transform -translate-x-1/2"
+                        className="absolute bottom-[170px] left-1/2 transform -translate-x-1/2  z-[-1]"
                         width={255}
                         height={319}
                     />

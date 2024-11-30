@@ -4,53 +4,73 @@ import Header from "../../components/layout/MainHeader";
 import NavBar from "../../components/layout/NavBar";
 import Dropdown from "../Main/components/Dropdown";
 import GuideDetailContent from "./components/GuideDetailContent";
-import guideJamsil from "../../assets/svg/guide_jamsil.svg";
 
 import { StadiumType, stadiumList } from "@/src/constants/ZoneData";
-import { handleGetStadiumInfo } from "@/src/api/StadiumApiHandler";
-import { ZoneGetParamsType, ZoneGetResponseType, ZoneType } from "@/src/api/StadiumApiType";
 import { useStadiumSelector } from "@/src/hooks/useStadiumSelector";
 import { useRouter } from "next/router";
+import { ZoneGetParamsType, ZoneGetResponseType } from "@/src/api/StadiumApiType";  // 타입들 import
+import { handleGetStadiumInfo } from "@/src/api/StadiumApiHandler"; // API 호출 함수
+
+import { useStadiumContext } from "@/src/context/StadiumContext";
 
 const Guide = () => {
-  // 가이드 스타디움 관리
-  const {
-    selectedStadium,
-    setSelectedStadium,
-    selectedSection,
-    setSelectedSection,
-    selectedSectionColor,
-    setSelectedSectionColor,
-    zoneNameList,
-    setZoneNameList,
-    handleStadiumSelect,
-    //handleSectionClick,
-    stadiumInfo,
-    setStadiumInfo,
-  } = useStadiumSelector();
+  const context = useStadiumContext();
+  if (!context) {
+    // 예외 처리: context가 없으면 에러를 던지거나 기본값을 사용
+    return <div>Loading...</div>;
+  }
+  const { 
+    selectedStadium, setSelectedStadium, 
+    selectedSection, setSelectedSection, 
+    selectedSectionColor, setSelectedSectionColor, 
+    zoneNameList, setZoneNameList, 
+    stadiumInfo, setStadiumInfo 
+  } = context;
+  
 
-  // 스타디움 선택시 API 연동
+  // 스타디움 변경 시, 스타디움 정보 및 구역명 리스트를 가져옵니다.
   const handleStadiumInfo = async () => {
+    // 유효하지 않으면 API 호출하지 않음
+    if (!selectedStadium) {
+      console.log("유효하지 않은 스타디움 값입니다: " + selectedStadium);
+      return;
+    }
+    
     const params: ZoneGetParamsType = {
       stadiumName: selectedStadium as string,
     };
 
+    // API 호출
     const stadiumApiData = await handleGetStadiumInfo(params);
     if (stadiumApiData) {
       setStadiumInfo(stadiumApiData);
-      //console.log(stadiumApiData.zones);
-      setZoneNameList(stadiumApiData.zones.map((zone) => zone.zoneName));
-      const selectedZoneColor = stadiumApiData.zones.find((zone) => zone.zoneName === selectedSection)?.zoneColor;
+      setZoneNameList(stadiumApiData.zones.map(zone => zone.zoneName));
+
+      // 선택된 구역의 색상 업데이트
+      const selectedZoneColor = stadiumApiData.zones.find(zone => zone.zoneName === selectedSection)?.zoneColor;
       if (selectedZoneColor) {
         setSelectedSectionColor(selectedZoneColor);
       }
     }
   };
+  
 
-  // 선택된 스타디움이 변경될 때마다 API 호출
+  // 스타디움 선택 핸들러
+  const handleStadiumSelect = (stadium: StadiumType) => {
+    // 선택 가능한 구장인지 확인
+    if (stadium === StadiumType.JAMSIL || stadium === StadiumType.SUWON_KT) {
+     setSelectedStadium(stadium);
+    }
+  };
+
+  // 스타디움 변경될 때마다 호출
   useEffect(() => {
+    handleStadiumSelect(selectedStadium);
     handleStadiumInfo();
-  }, [selectedStadium]); // 쿼리 파라미터가 변경될 때마다 실행
+  }, [selectedStadium]);  // selectedStadium 또는 selectedSection이 변경될 때마다 실행
+
+
+
   // Zone 클릭시 가이드 세부 페이지로 이동 및 API 데이터를 쿼리 파라미터로 전달
   const router = useRouter();
 
@@ -95,12 +115,13 @@ const Guide = () => {
 
   // router가 '/guide/zone' 경로로 이동할 때 상태 초기화
   useEffect(() => {
-    console.log(router.pathname);
+    //console.log(router.pathname);
     if (router.pathname !== "/guide") {
       setSelectedSection("");
       setSelectedSectionColor("");
     }
   }, [router.pathname]);
+
 
   return (
     <div className="flex flex-col w-full h-screen bg-grayscale-5 pt-16">

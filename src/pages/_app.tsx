@@ -41,8 +41,8 @@ import Script from 'next/script';
 // 전역 소셜로그인 상태 관리
 import { SessionProvider } from "next-auth/react";
 
-// Enum으로 추천 구역 Data 관리
-import { StadiumType, SeatType, Keyword } from "../constants/ZoneData"
+// 스타디움 값 전역 상태 관리
+import { StadiumProvider } from "@/src/context/StadiumContext";  // 작성한 Context 경로
 
 import { ZoneGetResponseType } from "../api/ResultApiType";
 
@@ -57,12 +57,6 @@ export const metadata = {
 };
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps: { session, ...pageProps } }) => {
-  // 메인홈 스타디움 관리
-  const {
-    selectedStadium: selectedMainStadium,
-    setSelectedStadium: setSelectedMainStadium
-  } = useStadiumSelector();
-
   // 백엔드에 추천 질문 데이터 전송 후 반환받은 resultId 값 저장하는 변수/함수
   const [resultId, setResultId] = useState<number | null>(null);  //useState(0);  // 0 또는 -1로 초기화'
   
@@ -94,9 +88,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps: { session, ...pagePro
         case '/':
             return <HomePage />;
         case '/recommend/question':
-            return <Question /*stadium={selectedMainStadium}*/ setResultId={setResultId} recommendedZoneList={recommendedZoneList} setRecommendedZoneList={setRecommendedZoneList}/>;
+            return <Question setResultId={setResultId} recommendedZoneList={recommendedZoneList} setRecommendedZoneList={setRecommendedZoneList}/>;
         case '/recommend/results':
-            return <Result /*stadium={selectedMainStadium}*/ resultId={resultId} setResultId={setResultId} />;
+            return <Result resultId={resultId} setResultId={setResultId} />;
         case '/guide':
             return <Guide/>
         case '/guide/zone':
@@ -114,40 +108,42 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps: { session, ...pagePro
   
   return (
     <>
-    <Head>
-      <title>HitZone</title>
-      <meta name="description" content="큐시즘 30th 밋업 A팀 히트존" />
-      {/* 기본 Favicon */}
-      <link rel="icon" href="/favicon.ico" />
+      <Head>
+        <title>HitZone</title>
+        <meta name="description" content="큐시즘 30th 밋업 A팀 히트존" />
+        {/* 기본 Favicon */}
+        <link rel="icon" href="/favicon.ico" />
 
-      {/* Web App Manifest */}
-      <link rel="manifest" href="/manifest.json" />
+        {/* Web App Manifest */}
+        <link rel="manifest" href="/manifest.json" />
 
-      {/* iOS 전용 홈 화면 아이콘 */}
-      <link rel="apple-touch-icon" sizes="192x192" href="/android-icon-192x192.png" />
+        {/* iOS 전용 홈 화면 아이콘 */}
+        <link rel="apple-touch-icon" sizes="192x192" href="/android-icon-192x192.png" />
 
-      {/* 메타 데이터 */}
-      <meta name="theme-color" content="#ffffff" />
-      <meta name="description" content="A Progressive Web App" />
-      
-      {/* Microsoft Clarity 스크립트 */}
-      <Script
-        id="ms-clarity"
-        strategy="afterInteractive" // 스크립트가 사용자 인터랙션 후 로드되도록 설정
-        dangerouslySetInnerHTML={{
-          __html: `(function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-          })(window, document, "clarity", "script", "p2zzif1xu0");`,
-        }}
-      />
-    </Head>
+        {/* 메타 데이터 */}
+        <meta name="theme-color" content="#ffffff" />
+        <meta name="description" content="A Progressive Web App" />
+        
+        {/* Microsoft Clarity 스크립트 */}
+        <Script
+          id="ms-clarity"
+          strategy="afterInteractive" // 스크립트가 사용자 인터랙션 후 로드되도록 설정
+          dangerouslySetInnerHTML={{
+            __html: `(function(c,l,a,r,i,t,y){
+              c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+              t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "p2zzif1xu0");`,
+          }}
+        />
+      </Head>
 
       {/*<SessionProvider session={session}>*/}
-      <div className="flex flex-col h-screen max-w-[500px] mx-auto ">
-        {renderComponent()}
-      </div>
+      <StadiumProvider>
+        <div className="flex flex-col h-screen max-w-[500px] mx-auto ">
+          {renderComponent()}
+        </div>
+      </StadiumProvider>
       {/*</SessionProvider> */}
 
       <script src="https://developers.kakao.com/sdk/js/kakao.min.js" async></script>

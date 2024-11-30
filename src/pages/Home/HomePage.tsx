@@ -40,7 +40,7 @@ const HomePage = () => {
     
 
     return (
-        <div>
+        <>
             {/* 초기 페이지 */}
             {currentPage === 'init' && <InitPage/>} 
 
@@ -52,7 +52,7 @@ const HomePage = () => {
 
             {/* 메인 페이지 */}
             {currentPage === 'main' && <Main />}
-        </div>
+        </>
     );
 };
 
