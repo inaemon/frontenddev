@@ -1,3 +1,4 @@
+import { StaticImageData } from "next/image";
 import meal01 from "../assets/webp/culture/meal01.webp";
 import meal02 from "../assets/webp/culture/meal02.webp";
 import meal03 from "../assets/webp/culture/meal03.webp";
@@ -20,15 +21,33 @@ import enjoy02 from "../assets/webp/culture/enjoy02.webp";
 import enjoy03 from "../assets/webp/culture/enjoy03.webp";
 import enjoy04 from "../assets/webp/culture/enjoy04.webp";
 
+// 데이터 타입 정의
+export interface FoodItem {
+    title: string;
+    location: string;
+    menu: string;
+    price: string;
+    description: string;
+    image: string | StaticImageData;
+  }
+  
+  export interface EntertainmentItem {
+    title: string;
+    description: string;
+    tip: string;
+    image: string | StaticImageData;
+  }
+
 const cultureData = {
-  먹거리: {
-    내부: {
-      식사류: [
+  food: {
+    internal: {
+      // 구장 내부 식사류   
+      meals: [
         {
           title: "통밥",
           location: "2층 B06 / 2.5층 C05",
           menu: "김치말이국수",
-          price: "7,000원 (세트 26,000원)",
+          price: "국수 7,000원 (삼겹살+국수 세트 26,000원)",
           description: "잠실야구장의 최고 인기 메뉴, 김치말이국수! 전석 매진일 기준 경기 1시간 전 주문 필요해요.",
           image: meal01,
         },
@@ -43,8 +62,8 @@ const cultureData = {
         {
           title: "명인만두",
           location: "1층 A19 / 2층 B30",
-          menu: "만떡 세트 (만두+떡볶이)",
-          price: "13,000원~~",
+          menu: "만떡 세트",
+          price: "13,000원~",
           description: "간단하게 하나씩 집어먹기 편한 명인만두! 분식도 함께 팔아서 먹기 좋아요.",
           image: meal03,
         },
@@ -65,7 +84,8 @@ const cultureData = {
           image: meal05,
         },
       ],
-      후식류: [
+      // 구장 내부 후식류  
+      desserts: [
         {
           title: "와팡",
           location: "2층 B08 / 2.5층 C03 / 3층 D06",
@@ -100,7 +120,8 @@ const cultureData = {
         },
       ],
     },
-    외부: [
+    // 구장 외부 (먹거리)
+    external: [
       {
         title: "파오파오",
         location: "잠실 새마을시장 (잠실새내역 3번 출구)",
@@ -112,7 +133,7 @@ const cultureData = {
       {
         title: "깻잎닭강정",
         location: "잠실 새마을시장 (잠실새내역 3번 출구)",
-        menu: "양념닭강정, 후라이드",
+        menu: "양념닭강정",
         price: "소 7,000원 / 중 9,500원 / 대 10,000원",
         description: "깻잎향이 나는 깻잎닭강정! 야구 시간대에는 대(大) 사이즈만 주문이 가능해요.",
         image: out02,
@@ -130,21 +151,22 @@ const cultureData = {
         location: "잠실새내역 4번출구",
         menu: "숯불순살구이, 닭껍질튀김",
         price: "숯불순살구이 19,000원 / 닭껍질튀김 4,000원",
-        description: "야구장과도 가깝고 간편하게 먹기 좋은 잭슨피자! 인원에 맞게 여러 사이즈로 주문할 수 있어요.",
+        description: "숯불향치킨을 맛 볼 수 있는 직화계! 사리를 추가하면 충분한 양으로 먹을 수 있어요.",
         image: out04,
       },
       {
         title: "나레초밥",
         location: "잠실새내역 먹자골목",
         menu: "만원초밥, 모듬초밥",
-        price: "숯10,000원~",
+        price: "10,000원~",
         description: "가성비 있게 먹기 좋은 나레초밥! 포장 시에는 미니우동이 제공되지 않으니 참고하세요.",
         image: out05,
       },
     ],
   },
-  즐길거리: {
-    내부: [
+  entertainment: {
+    // 구장 내부 (즐길거리)
+    internal: [
       {
         title: "포토카드",
         description: "선수들의 사진을 뽑을 수 있는 포토카드!",
@@ -164,7 +186,8 @@ const cultureData = {
         image: enjoy03,
       },
     ],
-    외부: [
+    // 구장 외부 (즐길거리)
+    external: [
       {
         title: "브랜드데이",
         description: "잠실야구장 스폰서 브랜드 중 하나가 구장 밖 매표소 근처에서 이벤트 하는 날!",

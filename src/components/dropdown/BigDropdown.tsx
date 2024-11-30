@@ -7,8 +7,8 @@ import { useOutsideClick } from "@/src/hooks/useOutsideClick";
 
 interface BigDropdownProps {
   options: StadiumType[];
-  selectedOption: StadiumType;
-  onSelect: (option: StadiumType) => void;
+  selectedOption: StadiumType; // 부모 상태에서 전달받는 선택된 옵션
+  onSelect: (option: StadiumType) => void; // 선택 시 상태 업데이트 함수
 }
 
 export default function BigDropdown({ options, selectedOption, onSelect }: BigDropdownProps) {
@@ -16,7 +16,7 @@ export default function BigDropdown({ options, selectedOption, onSelect }: BigDr
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-  // 드롭다운 외부 클릭시 드롭다운 닫히는 이벤트
+  // 드롭다운 외부 클릭 시 닫기
   const dropdownRef = useOutsideClick(() => setIsDropdownOpen(false));
 
   return (
@@ -26,7 +26,7 @@ export default function BigDropdown({ options, selectedOption, onSelect }: BigDr
         className="flex items-center gap-2 w-[220px] h-[36px] text-lg font-bold text-grayscale-80"
       >
         <span>{selectedOption || "야구장을 선택하세요"}</span>
-        <Image src={stadiumDropdownIcon} alt="dropdown icon" width={16} height={16} />
+        <Image src={stadiumDropdownIcon} alt="dropdown icon" width={12} height={12} />
       </button>
 
       <div
@@ -44,7 +44,7 @@ export default function BigDropdown({ options, selectedOption, onSelect }: BigDr
                 <li
                   key={option}
                   onClick={() => {
-                    if (isAvailable) { // 선택 가능할 때만 동작
+                    if (isAvailable) {
                       onSelect(option);
                       setIsDropdownOpen(false);
                     }
