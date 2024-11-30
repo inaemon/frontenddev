@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, { createContext, useEffect, useState, useContext, ReactNode } from "react";
 import { StadiumType } from "@/src/constants/ZoneData";
 import { ZoneGetResponseType } from "@/src/api/StadiumApiType"; 
 
@@ -17,13 +17,30 @@ interface StadiumContextType {
 }
 
 // 2. 기본값 설정
-const StadiumContext = createContext<StadiumContextType | undefined>(undefined);
+const StadiumContext = createContext<StadiumContextType | null>(null);
 
 // 3. Context Provider 컴포넌트
 export const StadiumProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   // 프론트에서 선택한 스타디움 값 전역 관리 변수
-  const [selectedStadium, setSelectedStadium] = useState<StadiumType>(StadiumType.JAMSIL);  // 초기값: 잠실
-  
+  const [selectedStadium, setSelectedStadium] = useState<StadiumType>(StadiumType.JAMSIL);
+  // 페이지 이동 및 새롭게 렌더링하더라도 기존에 선택한 selectedStadium 값이 초기화되지 않고 유지되도록 로컬 히스토리에 저장
+  useEffect(() => {
+    // 클라이언트 사이드에서만 localStorage 사용
+    if (typeof window !== "undefined") {
+      const savedStadium = localStorage.getItem('selectedStadium');
+      if (savedStadium) {
+        setSelectedStadium(JSON.parse(savedStadium));
+      }
+    }
+  }, []);
+  // 상태 업데이트 시 localStorage에 저장
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem('selectedStadium', JSON.stringify(selectedStadium));
+    }
+  }, [selectedStadium]);
+
+
   // 프론트에서 선택한 스타디움에 따른 좌석(zone) 리스트 전역 관리 변수
   const [zoneNameList, setZoneNameList] = useState<string[]>([]);
 
@@ -50,10 +67,4 @@ export const StadiumProvider: React.FC<{ children: ReactNode }> = ({ children })
 };
 
 // 4. Context 사용을 위한 커스텀 훅
-export const useStadiumContext = (): StadiumContextType => {
-  const context = useContext(StadiumContext);
-  if (!context) {
-    throw new Error("useStadiumContext must be used within a StadiumProvider");
-  }
-  return context;
-};
+export const useStadiumContext = () => useContext(StadiumContext);

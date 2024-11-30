@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { useSession } from "next-auth/react";
 // import { useRouter } from "next/router";
 
@@ -23,23 +23,42 @@ import ScrollAppeal from "./components/ScrollAppeal";
 // Enum으로 추천 구역 Data 관리
 import { StadiumType, stadiumList } from "../../constants/ZoneData";
 
+import { useStadiumContext } from "@/src/context/StadiumContext";
+
 const Main = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false); // 준비 중 팝업 상태
 
   // 메인홈 스타디움 관리
-  const { selectedStadium, setSelectedStadium } = useStadiumSelector();
-  
-  const handleStadiumSelect = (stadium: StadiumType) => {
-    // 선택 가능한 구장인지 확인
-    if (stadium === StadiumType.JAMSIL || stadium === StadiumType.SUWON_KT) {
-      setSelectedStadium(stadium);
+  const context = useStadiumContext();
+  if (!context) {
+    // 예외 처리: context가 없으면 에러를 던지거나 기본값을 사용
+    return <div>Loading...</div>;
+  }
+  const { 
+    selectedStadium, setSelectedStadium
+  } = context;
+
+  useEffect(() => {
+    // 처음 로드 시 한 번만 JAMSIL로 설정
+    if (!selectedStadium) {
+      setSelectedStadium(StadiumType.JAMSIL);
     }
-  };
+    handleStadiumSelect(selectedStadium)
+  }, [selectedStadium]);
+
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
   const closePopup = () => setIsPopupOpen(false);
-  
+
+
+  // 스타디움 선택 핸들러
+  const handleStadiumSelect = (stadium: StadiumType) => {
+    // 선택 가능한 구장인지 확인
+    if (stadium === StadiumType.JAMSIL || stadium === StadiumType.SUWON_KT) {
+     setSelectedStadium(stadium);
+    }
+  };
 
   ///////////////////////////////////////////////////////////
   // 🐻 INAE 추가 코드
