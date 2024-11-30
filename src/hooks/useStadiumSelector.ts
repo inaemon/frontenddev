@@ -6,22 +6,27 @@ import { handleGetStadiumInfo } from "@/src/api/StadiumApiHandler"; // API 호�
 import { useStadiumContext } from "@/src/context/StadiumContext";
 
 export const useStadiumSelector = () => {
-  const { selectedStadium, setSelectedStadium } = useStadiumContext();
-  const [selectedSection, setSelectedSection] = useState<string>("");
-  const [selectedSectionColor, setSelectedSectionColor] = useState<string>("");
-
-  // zoneName만 추출
-  const [zoneNameList, setZoneNameList] = useState<string[]>([]);
-
-  // 스타디움 API 데이터 관리
-  const [stadiumInfo, setStadiumInfo] = useState<ZoneGetResponseType>();
+  const { 
+    selectedStadium, setSelectedStadium, 
+    selectedSection, setSelectedSection, 
+    selectedSectionColor, setSelectedSectionColor, 
+    zoneNameList, setZoneNameList, 
+    stadiumInfo, setStadiumInfo 
+  } = useStadiumContext();
 
   // 스타디움 변경 시, 스타디움 정보 및 구역명 리스트를 가져옵니다.
   const handleStadiumInfo = async () => {
+    // 유효하지 않으면 API 호출하지 않음
+    if (!selectedStadium) {
+      console.log("유효하지 않은 스타디움 값입니다: " + selectedStadium);
+      return;
+    }
+    
     const params: ZoneGetParamsType = {
       stadiumName: selectedStadium as string,
     };
 
+    // API 호출
     const stadiumApiData = await handleGetStadiumInfo(params);
     if (stadiumApiData) {
       setStadiumInfo(stadiumApiData);
@@ -37,13 +42,6 @@ export const useStadiumSelector = () => {
 
   // 스타디움 변경될 때마다 호출
   useEffect(() => {
-    // 유효하지 않으면 API 호출하지 않음
-    if (!selectedStadium) {
-      console.log("유효하지 않은 스타디움 값입니다: " + selectedStadium);
-      return;
-    }
-
-    // API 호출
     handleStadiumInfo();
   }, [selectedStadium, selectedSection]);  // selectedStadium 또는 selectedSection이 변경될 때마다 실행
 
