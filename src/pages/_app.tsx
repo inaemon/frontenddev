@@ -140,7 +140,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps: { session, ...pagePro
 
       {/*<SessionProvider session={session}>*/}
       <StadiumProvider>
-        <div className="flex flex-col h-screen max-w-[500px] mx-auto overflow-hidden">
+        <div className="flex flex-col h-screen max-w-[500px] mx-auto ">
           {renderComponent()}
         </div>
       </StadiumProvider>
